@@ -7,8 +7,8 @@ JSONArray json;
 void setup() {
   size(650, 800);
   bg = loadImage("CA.jpg");
-  //  json = loadJSONArray("https://ebird.org/ws2.0/data/obs/CA/recent/cangoo?maxResults=30&key=phnhfrhb4c4t");
-  json = loadJSONArray("sightings.json");
+    json = loadJSONArray("https://ebird.org/ws2.0/data/obs/US-CA/recent/cangoo?maxResults=30&key=phnhfrhb4c4t");
+//  json = loadJSONArray("sightings.json");
 }
 
 void draw() {
@@ -34,6 +34,7 @@ void draw() {
     lng = thisObservation.getFloat("lng");
     mapLat = map(lat, 41.9689362, 32.5117042, 42, 774);
     mapLng = map(lng, -124.1546008, -117.1349992, 33, 452);
+    println(mapLat + " & " + mapLng);
     ellipse(mapLng, mapLat, 10 + howMany, 10 + howMany);
   }
   println("Goodbye");
