@@ -6,11 +6,14 @@ float screenHeight;
 PImage map;
 PFont loadingFont;
 String loadingMessage = "Loading....";
+String listURL = "https://ebird.org/ws2.0/product/lists/US?maxResults=100&key=phnhfrhb4c4t";
 float loadingMessageWidth;
 float loadingMessageX;
 float loadingMessageY;
 float elapsedSeconds;
 boolean printLoadingMessage = true;
+JSONArray lists;
+boolean JSONLoaded = false;
 
 void setup() {
   map = loadImage("us-map.png");
@@ -23,10 +26,7 @@ void setup() {
   loadingMessage = "Loading";
   loadingMessageX = (screenWidth / 2.0) - (loadingMessageWidth / 2.0);
   loadingMessageY = screenHeight / 2.0 - 30;
-  println(loadingMessageWidth);
-  float pi = 3.14159;
-  println(pi);
-  println(int(pi));
+  thread("retrieveLists");
 }
 
 void draw() {
@@ -40,7 +40,7 @@ void draw() {
   if (printLoadingMessage == true) {
     printLoadingMessage();
   }
-  if (millis() > 10000) {
+  if (JSONLoaded == true) {
     printLoadingMessage = false;
   }
 }
@@ -61,4 +61,14 @@ void printLoadingMessage() {
   } else if (timer % 5 == 4) {
     text(loadingMessage + "...", loadingMessageX, loadingMessageY);
   }
+}
+
+void retrieveLists() {
+//  delay(5000);
+  lists = loadJSONArray(listURL);
+  println("lists retrieved!");
+  println(lists);
+  JSONLoaded = true;
+}
+void printDot(float lat, float lng) {
 }
